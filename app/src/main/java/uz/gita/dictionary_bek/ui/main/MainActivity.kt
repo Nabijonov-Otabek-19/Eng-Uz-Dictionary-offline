@@ -17,7 +17,7 @@ import uz.gita.dictionary_bek.ui.favourite.FavouriteActivity
 class MainActivity : AppCompatActivity() {
     private val database: DictionaryDao by lazy { DBHelper.getInstance(applicationContext) }
     private val lang by lazy { intent.getStringExtra("lang") }
-    private val adapter by lazy { DictionaryAdapter(database.getAll(lang!!), lang!!) }
+    private val adapter by lazy { DictionaryAdapter(database.getAll(), lang!!) }
 
     private lateinit var binding: ActivityMainBinding
 
@@ -29,6 +29,9 @@ class MainActivity : AppCompatActivity() {
         binding.apply {
             rvDictionary.adapter = adapter
             rvDictionary.layoutManager = LinearLayoutManager(this@MainActivity)
+
+            if (lang == "english") inputSearch.hint = "Search - Qidiruv"
+            else inputSearch.hint = "Qidiruv - Search"
 
             inputSearch.doOnTextChanged { text, start, before, count ->
                 if (text.toString().isNotBlank()) {
@@ -42,7 +45,7 @@ class MainActivity : AppCompatActivity() {
                         binding.notFound.visibility = View.GONE
                     }
                 } else {
-                    rvDictionary.adapter = DictionaryAdapter(database.getAll(lang!!), lang!!)
+                    rvDictionary.adapter = DictionaryAdapter(database.getAll(), lang!!)
                 }
             }
 
@@ -57,7 +60,7 @@ class MainActivity : AppCompatActivity() {
             if (like == 1) database.removeFavourite(id)
             else database.addFavourite(id)
 
-            adapter.updateCursor(database.getAll(lang!!))
+            adapter.updateCursor(database.getAll())
         }
 
         adapter.setClickListener {
@@ -67,7 +70,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        adapter.updateCursor(database.getAll(lang!!))
+        adapter.updateCursor(database.getAll())
     }
 
     override fun onDestroy() {
