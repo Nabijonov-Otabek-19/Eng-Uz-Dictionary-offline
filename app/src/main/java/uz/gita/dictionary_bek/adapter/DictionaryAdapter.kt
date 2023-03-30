@@ -81,12 +81,12 @@ class DictionaryAdapter(private var cursor: Cursor) :
 
         fun bind() {
             cursor.moveToPosition(adapterPosition)
-            val isFavourite: Long = cursor.getLong(cursor.getColumnIndex("favourite"))
+            val isFavourite: Int = cursor.getInt(cursor.getColumnIndex("favourite"))
             val english = cursor.getString(cursor.getColumnIndex("english"))
 
             textWord.text = english
 
-            if (isFavourite.toInt() == 1) {
+            if (isFavourite == 1) {
                 imageLike.setImageResource(R.drawable.like)
             } else imageLike.setImageResource(R.drawable.no_like)
         }

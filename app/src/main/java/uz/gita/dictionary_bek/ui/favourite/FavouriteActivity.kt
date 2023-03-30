@@ -56,4 +56,9 @@ class FavouriteActivity : AppCompatActivity() {
     override fun onBackPressed() {
         finish()
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        adapter.onDestroy()
+    }
 }
