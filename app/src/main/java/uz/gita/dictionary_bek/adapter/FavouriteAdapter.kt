@@ -11,8 +11,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import uz.gita.dictionary_bek.R
 
-class DictionaryAdapter(private var cursor: Cursor) :
-    RecyclerView.Adapter<DictionaryAdapter.ViewHolder>() {
+class FavouriteAdapter(private var cursor: Cursor) :
+    RecyclerView.Adapter<FavouriteAdapter.ViewHolder>() {
 
     private var isValid = false
 

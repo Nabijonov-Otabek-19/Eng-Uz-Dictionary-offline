@@ -5,7 +5,6 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import uz.gita.dictionary_bek.db.DictionaryDao
 import uz.gita.dictionary_bek.utils.Constants
 import java.io.FileOutputStream
 import java.io.InputStream
@@ -51,7 +50,7 @@ class DBHelper private constructor(private val context: Context) :
         val fileOutputStream = FileOutputStream(file)
         try {
             val byte = ByteArray(1024)
-            var length = 0
+            var length: Int
             while (inputStream.read(byte).also { length = it } > 0) {
                 fileOutputStream.write(byte, 0, length)
             }
@@ -74,10 +73,14 @@ class DBHelper private constructor(private val context: Context) :
     }
 
     override fun addFavourite(id: Int) {
-        TODO("Not yet implemented")
+        database.execSQL("UPDATE dictionary set favourite=1 WHERE id = $id")
     }
 
     override fun removeFavourite(id: Int) {
-        TODO("Not yet implemented")
+        database.execSQL("""UPDATE dictionary set favourite=0 WHERE id = $id""".trimEnd())
+    }
+
+    override fun getAllFavourites(): Cursor {
+        return database.rawQuery("SELECT * FROM dictionary WHERE favourite = 1", null)
     }
 }

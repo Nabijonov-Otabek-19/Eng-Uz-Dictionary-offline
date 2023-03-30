@@ -7,4 +7,5 @@ interface DictionaryDao {
     fun search(word: String): Cursor
     fun addFavourite(id: Int)
     fun removeFavourite(id: Int)
+    fun getAllFavourites(): Cursor
 }
