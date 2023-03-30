@@ -1,9 +1,8 @@
 package uz.gita.dictionary_bek.ui.select
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import uz.gita.dictionary_bek.R
+import androidx.appcompat.app.AppCompatActivity
 import uz.gita.dictionary_bek.databinding.ActivitySelectLanguageBinding
 import uz.gita.dictionary_bek.ui.main.MainActivity
 

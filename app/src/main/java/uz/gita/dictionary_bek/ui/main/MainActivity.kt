@@ -2,6 +2,7 @@ package uz.gita.dictionary_bek.ui.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -16,7 +17,7 @@ import uz.gita.dictionary_bek.ui.favourite.FavouriteActivity
 class MainActivity : AppCompatActivity() {
     private val database: DictionaryDao by lazy { DBHelper.getInstance(applicationContext) }
     private val lang by lazy { intent.getStringExtra("lang") }
-    private val adapter by lazy { DictionaryAdapter(database.getAll(), lang!!) }
+    private val adapter by lazy { DictionaryAdapter(database.getAll(lang!!), lang!!) }
 
     private lateinit var binding: ActivityMainBinding
 
@@ -25,14 +26,13 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //val lang = intent.getStringExtra("lang")
-
         binding.apply {
             rvDictionary.adapter = adapter
             rvDictionary.layoutManager = LinearLayoutManager(this@MainActivity)
 
             inputSearch.doOnTextChanged { text, start, before, count ->
                 if (text.toString().isNotBlank()) {
+                    Log.d("AAA", "Input $lang")
                     val cursor = database.search("%$text%", lang!!)
                     rvDictionary.adapter = adapter
                     adapter.updateCursor(cursor)
@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
                         binding.notFound.visibility = View.GONE
                     }
                 } else {
-                    rvDictionary.adapter = DictionaryAdapter(database.getAll(), lang!!)
+                    rvDictionary.adapter = DictionaryAdapter(database.getAll(lang!!), lang!!)
                 }
             }
 
@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
             if (like == 1) database.removeFavourite(id)
             else database.addFavourite(id)
 
-            adapter.updateCursor(database.getAll())
+            adapter.updateCursor(database.getAll(lang!!))
         }
 
         adapter.setClickListener {
@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        adapter.updateCursor(database.getAll())
+        adapter.updateCursor(database.getAll(lang!!))
     }
 
     override fun onDestroy() {

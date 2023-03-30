@@ -64,12 +64,12 @@ class DBHelper private constructor(private val context: Context) :
     }
 
     @SuppressLint("Range")
-    override fun getAll(): Cursor {
-        return database.rawQuery("SELECT * FROM dictionary", null)
+    override fun getAll(lang: String): Cursor {
+        return database.rawQuery("SELECT * FROM dictionary ORDER BY $lang ASC", null)
     }
 
     override fun search(word: String, lang: String): Cursor {
-        return database.rawQuery("SELECT * FROM dictionary WHERE lang LIKE ?", arrayOf(word))
+        return database.rawQuery("SELECT * FROM dictionary WHERE $lang LIKE ?", arrayOf(word))
     }
 
     override fun addFavourite(id: Int) {
