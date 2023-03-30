@@ -15,7 +15,8 @@ class FavouriteActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFavouriteBinding
 
     private val database: DictionaryDao by lazy { DBHelper.getInstance(applicationContext) }
-    private val adapter by lazy { FavouriteAdapter(database.getAllFavourites()) }
+    private val lang by lazy { intent.getStringExtra("lang") }
+    private val adapter by lazy { FavouriteAdapter(database.getAllFavourites(),lang!!) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

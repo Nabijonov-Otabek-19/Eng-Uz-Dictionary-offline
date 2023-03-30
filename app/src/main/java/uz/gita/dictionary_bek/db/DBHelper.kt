@@ -68,8 +68,8 @@ class DBHelper private constructor(private val context: Context) :
         return database.rawQuery("SELECT * FROM dictionary", null)
     }
 
-    override fun search(word: String): Cursor {
-        return database.rawQuery("SELECT * FROM dictionary WHERE english LIKE ?", arrayOf(word))
+    override fun search(word: String, lang: String): Cursor {
+        return database.rawQuery("SELECT * FROM dictionary WHERE lang LIKE ?", arrayOf(word))
     }
 
     override fun addFavourite(id: Int) {

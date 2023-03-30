@@ -11,7 +11,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import uz.gita.dictionary_bek.R
 
-class DictionaryAdapter(private var cursor: Cursor) :
+class DictionaryAdapter(private var cursor: Cursor, val lang: String) :
     RecyclerView.Adapter<DictionaryAdapter.ViewHolder>() {
 
     private var isValid = false
@@ -82,7 +82,7 @@ class DictionaryAdapter(private var cursor: Cursor) :
         fun bind() {
             cursor.moveToPosition(adapterPosition)
             val isFavourite: Int = cursor.getInt(cursor.getColumnIndex("favourite"))
-            val english = cursor.getString(cursor.getColumnIndex("english"))
+            val english = cursor.getString(cursor.getColumnIndex(lang))
 
             textWord.text = english
 

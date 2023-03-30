@@ -15,7 +15,8 @@ import uz.gita.dictionary_bek.ui.favourite.FavouriteActivity
 
 class MainActivity : AppCompatActivity() {
     private val database: DictionaryDao by lazy { DBHelper.getInstance(applicationContext) }
-    private val adapter by lazy { DictionaryAdapter(database.getAll()) }
+    private val lang by lazy { intent.getStringExtra("lang") }
+    private val adapter by lazy { DictionaryAdapter(database.getAll(), lang!!) }
 
     private lateinit var binding: ActivityMainBinding
 
@@ -24,13 +25,15 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //val lang = intent.getStringExtra("lang")
+
         binding.apply {
             rvDictionary.adapter = adapter
             rvDictionary.layoutManager = LinearLayoutManager(this@MainActivity)
 
             inputSearch.doOnTextChanged { text, start, before, count ->
                 if (text.toString().isNotBlank()) {
-                    val cursor = database.search("%$text%")
+                    val cursor = database.search("%$text%", lang!!)
                     rvDictionary.adapter = adapter
                     adapter.updateCursor(cursor)
                     if (cursor.count == 0) {
@@ -39,12 +42,14 @@ class MainActivity : AppCompatActivity() {
                         binding.notFound.visibility = View.GONE
                     }
                 } else {
-                    rvDictionary.adapter = DictionaryAdapter(database.getAll())
+                    rvDictionary.adapter = DictionaryAdapter(database.getAll(), lang!!)
                 }
             }
 
             btnFavourite.setOnClickListener {
-                startActivity(Intent(this@MainActivity, FavouriteActivity::class.java))
+                val intent = Intent(this@MainActivity, FavouriteActivity::class.java)
+                intent.putExtra("lang", lang)
+                startActivity(intent)
             }
         }
 
