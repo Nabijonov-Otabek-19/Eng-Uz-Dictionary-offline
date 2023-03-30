@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +12,7 @@ import uz.gita.dictionary_bek.databinding.ActivityMainBinding
 import uz.gita.dictionary_bek.db.DBHelper
 import uz.gita.dictionary_bek.db.DictionaryDao
 import uz.gita.dictionary_bek.ui.favourite.FavouriteActivity
+import uz.gita.dictionary_bek.ui.item_word.ItemWordActivity
 
 class MainActivity : AppCompatActivity() {
     private val database: DictionaryDao by lazy { DBHelper.getInstance(applicationContext) }
@@ -63,8 +63,13 @@ class MainActivity : AppCompatActivity() {
             adapter.updateCursor(database.getAll())
         }
 
-        adapter.setClickListener {
-            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+        adapter.setClickListener { english, type, uzbek, lang ->
+            val intent = Intent(this, ItemWordActivity::class.java)
+            intent.putExtra("eng", english)
+            intent.putExtra("type", type)
+            intent.putExtra("uzb", uzbek)
+            intent.putExtra("lang", lang)
+            startActivity(intent)
         }
     }
 

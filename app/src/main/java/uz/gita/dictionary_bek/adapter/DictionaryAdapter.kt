@@ -16,10 +16,10 @@ class DictionaryAdapter(private var cursor: Cursor, val lang: String) :
 
     private var isValid = false
 
-    private var clickListener: ((String) -> Unit)? = null
+    private var clickListener: ((String, String, String, String) -> Unit)? = null
     private var clickLikeListener: ((Int, Int) -> Unit)? = null
 
-    fun setClickListener(listener: (String) -> Unit) {
+    fun setClickListener(listener: (String, String, String, String) -> Unit) {
         clickListener = listener
     }
 
@@ -75,7 +75,11 @@ class DictionaryAdapter(private var cursor: Cursor, val lang: String) :
             }
 
             textWord.setOnClickListener {
-                clickListener?.invoke(textWord.text.toString())
+                cursor.moveToPosition(adapterPosition)
+                val english = cursor.getString(cursor.getColumnIndex("english"))
+                val uzbek = cursor.getString(cursor.getColumnIndex("uzbek"))
+                val type = cursor.getString(cursor.getColumnIndex("type"))
+                clickListener?.invoke(english, type, uzbek, lang)
             }
         }
 
