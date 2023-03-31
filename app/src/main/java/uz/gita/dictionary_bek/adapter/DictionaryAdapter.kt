@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import uz.gita.dictionary_bek.R
 import uz.gita.dictionary_bek.model.WordData
 
-class DictionaryAdapter(private var cursor: Cursor, val lang: String) :
+class DictionaryAdapter(private var cursor: Cursor, var lang: String) :
     RecyclerView.Adapter<DictionaryAdapter.ViewHolder>() {
 
     private var isValid = false
@@ -101,9 +101,9 @@ class DictionaryAdapter(private var cursor: Cursor, val lang: String) :
         fun bind() {
             cursor.moveToPosition(adapterPosition)
             val isFavourite: Int = cursor.getInt(cursor.getColumnIndex("favourite"))
-            val english = cursor.getString(cursor.getColumnIndex(lang))
+            val word = cursor.getString(cursor.getColumnIndex(lang))
 
-            textWord.text = english
+            textWord.text = word
 
             if (isFavourite == 1) {
                 imageLike.setImageResource(R.drawable.like)
