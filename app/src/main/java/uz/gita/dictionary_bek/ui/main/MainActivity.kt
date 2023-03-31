@@ -16,9 +16,9 @@ import uz.gita.dictionary_bek.ui.favourite.FavouriteActivity
 import uz.gita.dictionary_bek.ui.item_word.ItemWordActivity
 
 class MainActivity : AppCompatActivity() {
-    private val database: DictionaryDao by lazy { DBHelper.getInstance(this) }
-    private val sharedPref by lazy { SharedPref.getInstance(this) }
-    private lateinit var adapter: DictionaryAdapter
+    private val database: DictionaryDao by lazy { DBHelper.getInstance(applicationContext) }
+    private val sharedPref by lazy { SharedPref.getInstance(applicationContext) }
+    private val adapter by lazy { DictionaryAdapter(database.getAll()) }
 
     private lateinit var binding: ActivityMainBinding
 
@@ -27,9 +27,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        adapter = DictionaryAdapter(database.getAll(), sharedPref.language)
-
         binding.apply {
+            adapter.setLang(sharedPref.language)
             rvDictionary.adapter = adapter
             rvDictionary.layoutManager = LinearLayoutManager(this@MainActivity)
 
@@ -47,7 +46,7 @@ class MainActivity : AppCompatActivity() {
                         binding.notFound.visibility = View.GONE
                     }
                 } else {
-                    adapter = DictionaryAdapter(database.getAll(), sharedPref.language)
+                    adapter.updateCursor(database.getAll())
                     rvDictionary.adapter = adapter
                 }
             }
@@ -66,7 +65,8 @@ class MainActivity : AppCompatActivity() {
                     sharedPref.language = "english"
                     Toast.makeText(this@MainActivity, "English-Uzbek", Toast.LENGTH_SHORT).show()
                 }
-                adapter = DictionaryAdapter(database.getAll(), sharedPref.language)
+                adapter.setLang(sharedPref.language)
+                adapter.updateCursor(database.getAll())
                 rvDictionary.adapter = adapter
             }
         }
@@ -87,9 +87,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        adapter = DictionaryAdapter(database.getAll(), sharedPref.language)
-        binding.rvDictionary.adapter = adapter
-        if (sharedPref.language.isEmpty()) sharedPref.language = "english"
         adapter.updateCursor(database.getAll())
     }
 

@@ -12,10 +12,11 @@ import androidx.recyclerview.widget.RecyclerView
 import uz.gita.dictionary_bek.R
 import uz.gita.dictionary_bek.model.WordData
 
-class DictionaryAdapter(private var cursor: Cursor, var lang: String) :
+class DictionaryAdapter(private var cursor: Cursor) :
     RecyclerView.Adapter<DictionaryAdapter.ViewHolder>() {
 
     private var isValid = false
+    private var lang = ""
 
     private var clickListener: ((WordData) -> Unit)? = null
     private var clickLikeListener: ((Int, Int) -> Unit)? = null
@@ -121,6 +122,10 @@ class DictionaryAdapter(private var cursor: Cursor, var lang: String) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind()
+    }
+
+    fun setLang(lang: String) {
+        this.lang = lang
     }
 
     fun onDestroy() {
