@@ -10,16 +10,17 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import uz.gita.dictionary_bek.R
+import uz.gita.dictionary_bek.model.WordData
 
 class DictionaryAdapter(private var cursor: Cursor, val lang: String) :
     RecyclerView.Adapter<DictionaryAdapter.ViewHolder>() {
 
     private var isValid = false
 
-    private var clickListener: ((String, String, String, String) -> Unit)? = null
+    private var clickListener: ((WordData) -> Unit)? = null
     private var clickLikeListener: ((Int, Int) -> Unit)? = null
 
-    fun setClickListener(listener: (String, String, String, String) -> Unit) {
+    fun setClickListener(listener: (WordData) -> Unit) {
         clickListener = listener
     }
 
@@ -67,19 +68,33 @@ class DictionaryAdapter(private var cursor: Cursor, val lang: String) :
             imageLike.setOnClickListener {
                 cursor.moveToPosition(adapterPosition)
                 val cursorFav = cursor.getInt(cursor.getColumnIndex("favourite"))
-                val cursorId = cursor.getLong(cursor.getColumnIndex("id"))
+                val cursorId = cursor.getInt(cursor.getColumnIndex("id"))
                 if (cursorFav == 1) {
                     imageLike.setImageResource(R.drawable.like)
                 } else imageLike.setImageResource(R.drawable.no_like)
-                clickLikeListener?.invoke(cursorId.toInt(), cursorFav)
+                clickLikeListener?.invoke(cursorId, cursorFav)
             }
 
             textWord.setOnClickListener {
                 cursor.moveToPosition(adapterPosition)
                 val english = cursor.getString(cursor.getColumnIndex("english"))
                 val uzbek = cursor.getString(cursor.getColumnIndex("uzbek"))
+                val word: String
+                val translate: String
+
+                if (lang == "english") {
+                    word = english
+                    translate = uzbek
+                } else {
+                    word = uzbek
+                    translate = english
+                }
+
+                val id = cursor.getInt(cursor.getColumnIndex("id"))
                 val type = cursor.getString(cursor.getColumnIndex("type"))
-                clickListener?.invoke(english, type, uzbek, lang)
+                val like = cursor.getInt(cursor.getColumnIndex("favourite"))
+
+                clickListener?.invoke(WordData(id, word, type, translate, like))
             }
         }
 

@@ -29,4 +29,8 @@ class SelectLanguageActivity : AppCompatActivity() {
             }
         }
     }
+
+    override fun onBackPressed() {
+        finishAffinity()
+    }
 }

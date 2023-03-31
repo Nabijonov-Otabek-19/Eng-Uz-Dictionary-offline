@@ -10,16 +10,17 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import uz.gita.dictionary_bek.R
+import uz.gita.dictionary_bek.model.WordData
 
 class FavouriteAdapter(private var cursor: Cursor, val lang: String) :
     RecyclerView.Adapter<FavouriteAdapter.ViewHolder>() {
 
     private var isValid = false
 
-    private var clickListener: ((String) -> Unit)? = null
+    private var clickListener: ((WordData) -> Unit)? = null
     private var clickLikeListener: ((Int, Int) -> Unit)? = null
 
-    fun setClickListener(listener: (String) -> Unit) {
+    fun setClickListener(listener: (WordData) -> Unit) {
         clickListener = listener
     }
 
@@ -75,16 +76,34 @@ class FavouriteAdapter(private var cursor: Cursor, val lang: String) :
             }
 
             textWord.setOnClickListener {
-                clickListener?.invoke(textWord.text.toString())
+                cursor.moveToPosition(adapterPosition)
+                val english = cursor.getString(cursor.getColumnIndex("english"))
+                val uzbek = cursor.getString(cursor.getColumnIndex("uzbek"))
+                val word: String
+                val translate: String
+
+                if (lang == "english") {
+                    word = english
+                    translate = uzbek
+                } else {
+                    word = uzbek
+                    translate = english
+                }
+
+                val id = cursor.getInt(cursor.getColumnIndex("id"))
+                val type = cursor.getString(cursor.getColumnIndex("type"))
+                val like = cursor.getInt(cursor.getColumnIndex("favourite"))
+
+                clickListener?.invoke(WordData(id, word, type, translate, like))
             }
         }
 
         fun bind() {
             cursor.moveToPosition(adapterPosition)
             val isFavourite: Int = cursor.getInt(cursor.getColumnIndex("favourite"))
-            val english = cursor.getString(cursor.getColumnIndex(lang))
+            val word = cursor.getString(cursor.getColumnIndex(lang))
 
-            textWord.text = english
+            textWord.text = word
 
             if (isFavourite == 1) {
                 imageLike.setImageResource(R.drawable.like)

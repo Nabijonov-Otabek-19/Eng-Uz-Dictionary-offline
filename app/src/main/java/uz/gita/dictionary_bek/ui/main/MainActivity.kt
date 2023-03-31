@@ -63,12 +63,9 @@ class MainActivity : AppCompatActivity() {
             adapter.updateCursor(database.getAll())
         }
 
-        adapter.setClickListener { english, type, uzbek, lang ->
+        adapter.setClickListener {
             val intent = Intent(this, ItemWordActivity::class.java)
-            intent.putExtra("eng", english)
-            intent.putExtra("type", type)
-            intent.putExtra("uzb", uzbek)
-            intent.putExtra("lang", lang)
+            intent.putExtra("item", it)
             startActivity(intent)
         }
     }

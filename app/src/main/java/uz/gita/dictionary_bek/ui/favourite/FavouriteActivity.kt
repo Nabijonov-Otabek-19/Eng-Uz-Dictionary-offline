@@ -1,14 +1,15 @@
 package uz.gita.dictionary_bek.ui.favourite
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import uz.gita.dictionary_bek.adapter.FavouriteAdapter
 import uz.gita.dictionary_bek.databinding.ActivityFavouriteBinding
 import uz.gita.dictionary_bek.db.DBHelper
 import uz.gita.dictionary_bek.db.DictionaryDao
+import uz.gita.dictionary_bek.ui.item_word.ItemWordActivity
 
 class FavouriteActivity : AppCompatActivity() {
 
@@ -16,7 +17,7 @@ class FavouriteActivity : AppCompatActivity() {
 
     private val database: DictionaryDao by lazy { DBHelper.getInstance(applicationContext) }
     private val lang by lazy { intent.getStringExtra("lang") }
-    private val adapter by lazy { FavouriteAdapter(database.getAllFavourites(),lang!!) }
+    private val adapter by lazy { FavouriteAdapter(database.getAllFavourites(), lang!!) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,8 +49,10 @@ class FavouriteActivity : AppCompatActivity() {
                 } else noFav.visibility = View.INVISIBLE
             }
 
-            adapter.setClickListener {
-                Toast.makeText(this@FavouriteActivity, it, Toast.LENGTH_SHORT).show()
+            adapter.setClickListener { item ->
+                val intent = Intent(this@FavouriteActivity, ItemWordActivity::class.java)
+                intent.putExtra("item", item)
+                startActivity(intent)
             }
         }
     }
