@@ -94,8 +94,9 @@ class DictionaryAdapter(private var cursor: Cursor) :
                 val id = cursor.getInt(cursor.getColumnIndex("id"))
                 val type = cursor.getString(cursor.getColumnIndex("type"))
                 val like = cursor.getInt(cursor.getColumnIndex("favourite"))
+                val transcript = cursor.getString(cursor.getColumnIndex("transcript"))
 
-                clickListener?.invoke(WordData(id, word, type, translate, like))
+                clickListener?.invoke(WordData(id, word, type, transcript, translate, like))
             }
         }
 

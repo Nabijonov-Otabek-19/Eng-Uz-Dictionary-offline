@@ -17,7 +17,6 @@ class ItemWordActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private lateinit var binding: ActivityItemWordBinding
     private val database: DictionaryDao by lazy { DBHelper.getInstance(applicationContext) }
-
     private val sharedPref by lazy { SharedPref.getInstance(applicationContext) }
 
     private var tts: TextToSpeech? = null
@@ -35,6 +34,7 @@ class ItemWordActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         binding.apply {
             txtWord.text = item.word
             txtType.text = item.type
+            txtTranscript.text = item.transcript
             txtTrans.text = item.translate
 
             if (sharedPref.language == "english") {
