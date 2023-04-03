@@ -19,7 +19,7 @@
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:paddingStart="16dp"
-            android:text="Dictionary"
+            android:text="Eng-Uz Dictionary"
             android:textColor="@color/white"
             android:textSize="22sp" />
 
@@ -78,6 +78,5 @@
         android:text="Not found"
         android:textColor="@color/blue"
         android:textSize="24sp" />
-
 
 </LinearLayout>
