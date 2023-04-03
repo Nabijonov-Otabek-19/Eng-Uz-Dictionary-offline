@@ -92,9 +92,10 @@ class FavouriteAdapter(private var cursor: Cursor, val lang: String) :
 
                 val id = cursor.getInt(cursor.getColumnIndex("id"))
                 val type = cursor.getString(cursor.getColumnIndex("type"))
+                val transcript = cursor.getString(cursor.getColumnIndex("transcript"))
                 val like = cursor.getInt(cursor.getColumnIndex("favourite"))
 
-                clickListener?.invoke(WordData(id, word, type, translate, like))
+                clickListener?.invoke(WordData(id, word, type, transcript, translate, like))
             }
         }
 
