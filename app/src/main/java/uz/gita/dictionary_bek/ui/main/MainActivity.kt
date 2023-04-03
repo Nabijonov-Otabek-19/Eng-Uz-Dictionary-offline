@@ -94,10 +94,6 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
 
         adapter.setClickListener {
-//            val intent = Intent(this, ItemWordActivity::class.java)
-//            intent.putExtra("item", it)
-//            startActivity(intent)
-
             showItemDialog(it)
         }
     }

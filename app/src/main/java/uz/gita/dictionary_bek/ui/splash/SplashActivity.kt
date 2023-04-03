@@ -24,16 +24,11 @@ class SplashActivity : AppCompatActivity() {
         val time = 1500L
 
         Handler(Looper.getMainLooper()).postDelayed({
-            if (sharedPref.language == "uzbek") {
-                val intent = Intent(this, MainActivity::class.java)
-                intent.putExtra("lang", "uzbek")
-                startActivity(intent)
-
-            } else {
-                val intent = Intent(this, MainActivity::class.java)
-                intent.putExtra("lang", "english")
-                startActivity(intent)
+            if (sharedPref.language.isEmpty()) {
+                sharedPref.language = "english"
             }
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }, time)
     }
 
