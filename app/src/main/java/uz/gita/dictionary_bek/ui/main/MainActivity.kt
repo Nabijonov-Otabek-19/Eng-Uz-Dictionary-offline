@@ -47,8 +47,13 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             rvDictionary.adapter = adapter
             rvDictionary.layoutManager = LinearLayoutManager(this@MainActivity)
 
-            if (sharedPref.language == "english") inputSearch.hint = "Search - Qidiruv"
-            else inputSearch.hint = "Qidiruv - Search"
+            if (sharedPref.language == "english") {
+                inputSearch.hint = "Search - Qidiruv"
+                txtTitle.text = "Eng-Uzb Dictionary"
+            } else {
+                inputSearch.hint = "Qidiruv - Search"
+                txtTitle.text = "Uzb-Eng Dictionary"
+            }
 
             inputSearch.doOnTextChanged { text, start, before, count ->
                 if (text.toString().isNotBlank()) {
@@ -75,9 +80,11 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             btnSwap.setOnClickListener {
                 if (sharedPref.language == "english") {
                     sharedPref.language = "uzbek"
+                    txtTitle.text = "Uzb-Eng Dictionary"
                     Toast.makeText(this@MainActivity, "Uzbek-English", Toast.LENGTH_SHORT).show()
                 } else {
                     sharedPref.language = "english"
+                    txtTitle.text = "Eng-Uzb Dictionary"
                     Toast.makeText(this@MainActivity, "English-Uzbek", Toast.LENGTH_SHORT).show()
                 }
                 adapter.setLang(sharedPref.language)
