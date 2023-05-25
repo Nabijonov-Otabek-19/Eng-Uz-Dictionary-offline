@@ -9,7 +9,6 @@ import uz.gita.dictionary_bek.utils.Constants
 import java.io.FileOutputStream
 import java.io.InputStream
 
-
 class DBHelper private constructor(private val context: Context) :
     SQLiteOpenHelper(context, Constants.DB_NAME, null, Constants.VERSION), DictionaryDao {
 

@@ -80,6 +80,7 @@ class DictionaryAdapter(private var cursor: Cursor) :
                 cursor.moveToPosition(adapterPosition)
                 val english = cursor.getString(cursor.getColumnIndex("english"))
                 val uzbek = cursor.getString(cursor.getColumnIndex("uzbek"))
+
                 val word: String
                 val translate: String
 
