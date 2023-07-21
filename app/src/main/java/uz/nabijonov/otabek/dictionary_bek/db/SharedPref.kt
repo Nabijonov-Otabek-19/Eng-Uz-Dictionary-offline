@@ -1,4 +1,4 @@
-package uz.gita.dictionary_bek.db
+package uz.nabijonov.otabek.dictionary_bek.db
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -19,7 +19,7 @@ class SharedPref private constructor() {
             pref = context.getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)
             editor = pref.edit()
 
-            if (!(::instance.isInitialized))
+            if (!(Companion::instance.isInitialized))
                 instance = SharedPref()
             return instance
         }

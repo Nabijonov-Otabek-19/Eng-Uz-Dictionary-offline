@@ -1,4 +1,4 @@
-package uz.gita.dictionary_bek.ui.favourite
+package uz.nabijonov.otabek.dictionary_bek.ui.favourite
 
 import android.app.Dialog
 import android.graphics.Color
@@ -14,13 +14,13 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.LinearLayoutManager
-import uz.gita.dictionary_bek.R
-import uz.gita.dictionary_bek.adapter.FavouriteAdapter
-import uz.gita.dictionary_bek.databinding.ActivityFavouriteBinding
-import uz.gita.dictionary_bek.db.DBHelper
-import uz.gita.dictionary_bek.db.DictionaryDao
-import uz.gita.dictionary_bek.db.SharedPref
-import uz.gita.dictionary_bek.model.WordData
+import uz.nabijonov.otabek.dictionary_bek.R
+import uz.nabijonov.otabek.dictionary_bek.adapter.FavouriteAdapter
+import uz.nabijonov.otabek.dictionary_bek.databinding.ActivityFavouriteBinding
+import uz.nabijonov.otabek.dictionary_bek.db.DBHelper
+import uz.nabijonov.otabek.dictionary_bek.db.DictionaryDao
+import uz.nabijonov.otabek.dictionary_bek.db.SharedPref
+import uz.nabijonov.otabek.dictionary_bek.model.WordData
 import java.util.*
 
 class FavouriteActivity : AppCompatActivity(), TextToSpeech.OnInitListener {

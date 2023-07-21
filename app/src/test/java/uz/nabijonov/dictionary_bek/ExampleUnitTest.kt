@@ -1,4 +1,4 @@
-package uz.gita.dictionary_bek
+package uz.nabijonov.dictionary_bek
 
 import org.junit.Test
 

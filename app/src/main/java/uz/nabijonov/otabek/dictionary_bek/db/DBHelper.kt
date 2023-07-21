@@ -1,11 +1,11 @@
-package uz.gita.dictionary_bek.db
+package uz.nabijonov.otabek.dictionary_bek.db
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import uz.gita.dictionary_bek.utils.Constants
+import uz.nabijonov.otabek.dictionary_bek.utils.Constants
 import java.io.FileOutputStream
 import java.io.InputStream
 
@@ -17,7 +17,7 @@ class DBHelper private constructor(private val context: Context) :
         private lateinit var instance: DBHelper
 
         fun getInstance(context: Context): DBHelper {
-            if (!(::instance.isInitialized)) {
+            if (!(Companion::instance.isInitialized)) {
                 instance = DBHelper(context)
             }
             return instance

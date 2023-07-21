@@ -1,4 +1,4 @@
-package uz.gita.dictionary_bek.ui.splash
+package uz.nabijonov.otabek.dictionary_bek.ui.splash
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -6,9 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import uz.gita.dictionary_bek.databinding.ActivitySplashBinding
-import uz.gita.dictionary_bek.db.SharedPref
-import uz.gita.dictionary_bek.ui.main.MainActivity
+import uz.nabijonov.otabek.dictionary_bek.databinding.ActivitySplashBinding
+import uz.nabijonov.otabek.dictionary_bek.db.SharedPref
+import uz.nabijonov.otabek.dictionary_bek.ui.main.MainActivity
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package uz.gita.dictionary_bek.adapter
+package uz.nabijonov.otabek.dictionary_bek.adapter
 
 import android.annotation.SuppressLint
 import android.database.Cursor
@@ -9,13 +9,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import uz.gita.dictionary_bek.R
-import uz.gita.dictionary_bek.model.WordData
+import uz.nabijonov.otabek.dictionary_bek.R
+import uz.nabijonov.otabek.dictionary_bek.model.WordData
 
-class FavouriteAdapter(private var cursor: Cursor, val lang: String) :
-    RecyclerView.Adapter<FavouriteAdapter.ViewHolder>() {
+class DictionaryAdapter(private var cursor: Cursor) :
+    RecyclerView.Adapter<DictionaryAdapter.ViewHolder>() {
 
     private var isValid = false
+    private var lang = ""
 
     private var clickListener: ((WordData) -> Unit)? = null
     private var clickLikeListener: ((Int, Int) -> Unit)? = null
@@ -68,17 +69,18 @@ class FavouriteAdapter(private var cursor: Cursor, val lang: String) :
             imageLike.setOnClickListener {
                 cursor.moveToPosition(adapterPosition)
                 val cursorFav = cursor.getInt(cursor.getColumnIndex("favourite"))
-                val cursorId = cursor.getLong(cursor.getColumnIndex("id"))
+                val cursorId = cursor.getInt(cursor.getColumnIndex("id"))
                 if (cursorFav == 1) {
                     imageLike.setImageResource(R.drawable.like)
                 } else imageLike.setImageResource(R.drawable.no_like)
-                clickLikeListener?.invoke(cursorId.toInt(), cursorFav)
+                clickLikeListener?.invoke(cursorId, cursorFav)
             }
 
             textWord.setOnClickListener {
                 cursor.moveToPosition(adapterPosition)
                 val english = cursor.getString(cursor.getColumnIndex("english"))
                 val uzbek = cursor.getString(cursor.getColumnIndex("uzbek"))
+
                 val word: String
                 val translate: String
 
@@ -92,8 +94,8 @@ class FavouriteAdapter(private var cursor: Cursor, val lang: String) :
 
                 val id = cursor.getInt(cursor.getColumnIndex("id"))
                 val type = cursor.getString(cursor.getColumnIndex("type"))
-                val transcript = cursor.getString(cursor.getColumnIndex("transcript"))
                 val like = cursor.getInt(cursor.getColumnIndex("favourite"))
+                val transcript = cursor.getString(cursor.getColumnIndex("transcript"))
 
                 clickListener?.invoke(WordData(id, word, type, transcript, translate, like))
             }
@@ -122,6 +124,10 @@ class FavouriteAdapter(private var cursor: Cursor, val lang: String) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind()
+    }
+
+    fun setLang(lang: String) {
+        this.lang = lang
     }
 
     fun onDestroy() {

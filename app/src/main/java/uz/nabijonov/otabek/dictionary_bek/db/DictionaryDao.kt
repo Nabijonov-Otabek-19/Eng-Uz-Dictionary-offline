@@ -1,4 +1,4 @@
-package uz.gita.dictionary_bek.db
+package uz.nabijonov.otabek.dictionary_bek.db
 
 import android.database.Cursor
 

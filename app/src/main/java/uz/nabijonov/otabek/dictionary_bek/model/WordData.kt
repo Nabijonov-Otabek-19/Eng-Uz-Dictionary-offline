@@ -1,4 +1,4 @@
-package uz.gita.dictionary_bek.model
+package uz.nabijonov.otabek.dictionary_bek.model
 
 data class WordData(
     val id: Int,

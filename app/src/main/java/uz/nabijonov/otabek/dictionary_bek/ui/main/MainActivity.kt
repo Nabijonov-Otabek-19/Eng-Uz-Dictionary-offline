@@ -1,4 +1,4 @@
-package uz.gita.dictionary_bek.ui.main
+package uz.nabijonov.otabek.dictionary_bek.ui.main
 
 import android.app.Dialog
 import android.content.Intent
@@ -16,14 +16,14 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
-import uz.gita.dictionary_bek.R
-import uz.gita.dictionary_bek.adapter.DictionaryAdapter
-import uz.gita.dictionary_bek.databinding.ActivityMainBinding
-import uz.gita.dictionary_bek.db.DBHelper
-import uz.gita.dictionary_bek.db.DictionaryDao
-import uz.gita.dictionary_bek.db.SharedPref
-import uz.gita.dictionary_bek.model.WordData
-import uz.gita.dictionary_bek.ui.favourite.FavouriteActivity
+import uz.nabijonov.otabek.dictionary_bek.R
+import uz.nabijonov.otabek.dictionary_bek.adapter.DictionaryAdapter
+import uz.nabijonov.otabek.dictionary_bek.databinding.ActivityMainBinding
+import uz.nabijonov.otabek.dictionary_bek.db.DBHelper
+import uz.nabijonov.otabek.dictionary_bek.db.DictionaryDao
+import uz.nabijonov.otabek.dictionary_bek.db.SharedPref
+import uz.nabijonov.otabek.dictionary_bek.model.WordData
+import uz.nabijonov.otabek.dictionary_bek.ui.favourite.FavouriteActivity
 import java.util.*
 
 class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
